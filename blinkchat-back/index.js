@@ -1,7 +1,7 @@
 import express from "express";
 import http from "http";
 import { join } from "path";
-import { Server } from "socket.io";
+import { Server as SocketServer } from "socket.io";
 import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
