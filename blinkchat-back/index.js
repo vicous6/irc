@@ -26,7 +26,7 @@ mongoose
   .then(() => console.log("Connection to Mongoose successful"))
   .catch(() => console.log("Connection to Mongoose failed"));
 
-io.listen(3000);
+io.listen(3001);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
@@ -85,6 +85,7 @@ io.on("connection", (socket) => {
   // repository.addMessage("moi", "coucou les gars", "&").then((res) => {
   //   console.log(res);
   // });cr
+  console.log("connected");
 
   socket.emit("connected");
 
