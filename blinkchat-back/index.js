@@ -11,7 +11,13 @@ const app = express();
 const server = http.createServer(app); // Create an HTTP server
 const port = process.env.PORT || 3010;
 const io = new Server(server);
+const corsOptions = {
+  origin: "https://irc-2exc-lntkc3sm0-vicous6.vercel.app/",
+  methods: ["GET", "POST"], // Specify the allowed HTTP methods
+};
 
+// Use CORS middleware with the specified options
+app.use(cors(corsOptions));
 let socketsList = [];
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority`;
 mongoose
