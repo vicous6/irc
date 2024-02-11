@@ -19,7 +19,9 @@ if (process.env.EXISTING_SERVER) {
   // Create a new HTTP server with Express
   server = http.createServer(app);
 }
-
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 const io = new SocketServer(server, { cors: { origin: "*" } });
 
 let socketsList = [];
@@ -86,12 +88,19 @@ function emitPopUpToAllUSersOfTheRoom(roomName, senderNickname, message) {
     }
   });
 }
+io.engine.on("connection_error", (err) => {
+  console.log(err.req); // the request object
+  console.log(err.code); // the error code, for example 1
+  console.log(err.message); // the error message, for example "Session ID unknown"
+  console.log(err.context); // some additional error context
+});
 let repository = new Repository();
 function sendTo(name) {}
 io.on("connection", (socket) => {
   // repository.addMessage("moi", "coucou les gars", "&").then((res) => {
   //   console.log(res);
   // });cr
+
   console.log("connected");
 
   socket.emit("connected");
@@ -324,9 +333,7 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
 });
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+
 //liste des choses a faire
 
 // ondeconect : send pop up to all users from all salons where users has joined
