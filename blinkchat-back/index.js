@@ -1,29 +1,32 @@
 import express from "express";
 import http from "http";
 import { join } from "path";
-import { Server as SocketServer } from "socket.io";
+import { Server } from "socket.io";
 import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import Repository from "./data/Repository.js";
 
 const app = express();
-const port = process.env.PORT || 3000; // Set port dynamically or default to 3000
+const port = process.env.PORT || 3001;
+app.use(cors());
 
-// Check if there's an existing server
-let server;
-if (process.env.EXISTING_SERVER) {
-  // Use existing server if provided
-  server = process.env.EXISTING_SERVER;
-} else {
-  // Create a new HTTP server with Express
-  server = http.createServer(app);
-}
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+console.log(port);
+const server = http.createServer(app);
+const io = new Server(server, {
+  // http://localhost:3000
+  // `https://multiplayer-chess-site.onrender.com`
+  cors: {
+    origins: `https://irc-2exc.vercel.app`,
+
+    // location of frontend (need to somehow specify port to render so that this code works)
+    // I might be able just pass the render site link
+    // I also forgot to add socket.io connect link to frontend in chessGame which is probably why I received an error
+    methods: ["GET", "POST"],
+  },
+  pingInterval: 2000,
+  pingTimeout: 10000,
 });
-const io = new SocketServer(server, { cors: { origin: "*" } });
-
 let socketsList = [];
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority`;
 mongoose
