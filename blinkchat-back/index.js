@@ -313,7 +313,9 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
 });
-
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 //liste des choses a faire
 
 // ondeconect : send pop up to all users from all salons where users has joined
