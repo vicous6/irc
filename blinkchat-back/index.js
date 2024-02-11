@@ -13,7 +13,7 @@ const port = process.env.PORT || 3010;
 const io = new Server(server);
 const corsOptions = {
   "force new connection": true,
-  origin: "https://irc-2exc.vercel.app//",
+  origin: "https://irc-2exc.vercel.app/",
   methods: ["GET", "POST"], // Specify the allowed HTTP methods
 };
 //irc-2exc-4bo8gkrru-vicous6.vercel.app/
@@ -32,6 +32,8 @@ mongoose
 // io.listen(3010);
 app.get("/", (req, res) => {
   // res.sendFile(join(__dirname, "index.html"));
+  res.send("response");
+  console.log("new connection");
 });
 
 function emitMessagesToAllUSers(messagesTab, roomName) {
