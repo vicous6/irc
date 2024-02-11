@@ -8,10 +8,11 @@ import "dotenv/config";
 import Repository from "./data/Repository.js";
 const app = express();
 const server = createServer(app);
+const port = process.env.PORT || 3001;
 const io = new Server(server, {
   cors: {
     // origin: "*",
-    origin: "http://localhost:3001",
+    origin: "https://irc-2exc.vercel.app/",
     methods: ["GET", "POST"],
   },
 });
@@ -114,7 +115,7 @@ io.on("connection", (socket) => {
                 socket.emit("error");
               } else {
                 // console.log(joinedRooms);
-                socket.emit("joined rooms", joinedRooms,"delete",roomName);
+                socket.emit("joined rooms", joinedRooms, "delete", roomName);
                 emitPopUpToAllUSersOfTheRoom(
                   roomName,
                   nickname,
@@ -138,7 +139,6 @@ io.on("connection", (socket) => {
             if (joinedRooms.commandResult === "error") {
               socket.emit("error");
             } else {
-              
               socket.emit("joined rooms", joinedRooms, "add", roomName);
               emitPopUpToAllUSersOfTheRoom(
                 roomName,
