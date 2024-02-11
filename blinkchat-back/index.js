@@ -19,7 +19,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Connection to Mongoose successful"))
+  .then(() => console.log(" Connection to Mongoose successful"))
   .catch(() => console.log("Connection to Mongoose failed"));
 
 app.use(cors());
