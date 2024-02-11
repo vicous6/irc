@@ -1,6 +1,6 @@
 import express from "express";
-import { createServer } from "http"; // Changed from "node:http"
-import { join } from "path"; // Changed from "node:path"
+import http from "http";
+import { join } from "path";
 import { Server } from "socket.io";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -8,7 +8,7 @@ import "dotenv/config";
 import Repository from "./data/Repository.js";
 
 const app = express();
-const server = createServer(app); // Creating server using createServer from http
+const server = http.createServer(app); // Create an HTTP server
 const port = process.env.PORT || 3010;
 const io = new Server(server);
 
@@ -22,7 +22,7 @@ mongoose
   .then(() => console.log("Connection to Mongoose successful"))
   .catch(() => console.log("Connection to Mongoose failed"));
 
-// io.listen(3011);
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
