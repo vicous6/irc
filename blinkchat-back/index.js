@@ -26,7 +26,7 @@ mongoose
   .then(() => console.log("Connection to Mongoose successful"))
   .catch(() => console.log("Connection to Mongoose failed"));
 
-io.listen(10000);
+io.listen(3010);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
