@@ -8,20 +8,19 @@ import "dotenv/config";
 import Repository from "./data/Repository.js";
 
 const app = express();
-// const server = http.createServer(app); // Create an HTTP server
-// const port = process.env.PORT || 10000;
-// const io = new Server(server);
-// const corsOptions = {
-//   "force new connection": true,
-//   origin: "https://irc-2exc.vercel.app/",
-//   methods: ["GET", "POST"], // Specify the allowed HTTP methods
-// };
-// const express = require('express');
-// const app = express();
+const port = process.env.PORT || 3000; // Set port dynamically or default to 3000
 
-const server = http.createServer(app);
+// Check if there's an existing server
+let server;
+if (process.env.EXISTING_SERVER) {
+  // Use existing server if provided
+  server = process.env.EXISTING_SERVER;
+} else {
+  // Create a new HTTP server with Express
+  server = http.createServer(app);
+}
 
-const io = require("socket.io")(server, { cors: { origin: "*" } });
+const io = new SocketServer(server, { cors: { origin: "*" } });
 
 let socketsList = [];
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority`;
@@ -325,7 +324,9 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
 });
-server.listen(port);
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 //liste des choses a faire
 
 // ondeconect : send pop up to all users from all salons where users has joined
