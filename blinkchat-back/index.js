@@ -8,7 +8,7 @@ import "dotenv/config";
 import Repository from "./data/Repository.js";
 const app = express();
 const server = createServer(app);
-const port = process.env.PORT || 10000;
+const port = process.env.PORT || 3010;
 const io = new Server(server, {
   cors: {
     // origin: "*",
@@ -26,7 +26,7 @@ mongoose
   .then(() => console.log("Connection to Mongoose successful"))
   .catch(() => console.log("Connection to Mongoose failed"));
 
-io.listen(10000);
+io.listen(3011);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
