@@ -1,22 +1,24 @@
 import express from "express";
-import { createServer } from "node:http";
-import { join } from "node:path";
+import { createServer } from "http"; // Changed from "node:http"
+import { join } from "path"; // Changed from "node:path"
 import { Server } from "socket.io";
 import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import Repository from "./data/Repository.js";
+
 const app = express();
-const server = createServer(app);
+const server = createServer(app); // Creating server using createServer from http
 const port = process.env.PORT || 3010;
 const io = new Server(server, {
   cors: {
-    // origin: "*",
     origin: "https://irc-2exc.vercel.app/",
     methods: ["GET", "POST"],
   },
 });
+
 let socketsList = [];
+
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority`;
 mongoose
   .connect(uri, {
