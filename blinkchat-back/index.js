@@ -8,7 +8,7 @@ import "dotenv/config";
 import Repository from "./data/Repository.js";
 const app = express();
 const server = createServer(app);
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3010;
 const io = new Server(server, {
   cors: {
     // origin: "*",
