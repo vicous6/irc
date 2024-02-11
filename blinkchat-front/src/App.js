@@ -93,6 +93,16 @@ function App() {
       socket.emit("publish message", message, activeRoom, nickname);
     }
   }
+  socket.on("connect_error", (err) => {
+    // the reason of the error, for example "xhr poll error"
+    console.log(err.message);
+
+    // some additional description, for example the status code of the initial HTTP response
+    console.log(err.description);
+
+    // some additional context, for example the XMLHttpRequest object
+    console.log(err.context);
+  });
   //////////////////////////////////////////////////////////////
   //   case "/list":
   //     // exemple "/list truc"
@@ -141,48 +151,48 @@ function App() {
     function OnError() {
       toast.error("Cette commande n'existe pas", { toastId: 16 });
     }
-      function onMessages(messages, roomName, bool) {
-        if (
-          bool === "update" &&
-          activeRoom === roomName &&
-          activeRoom !== undefined &&
-          activeRoom !== null
-        ) {
-          console.log("UPDATE #####");
-          setActiveRoom(roomName);
-          setMessages(messages);
-          setActiveTab("messages");
-        } else if (bool === "get" && activeRoom !== undefined) {
-          console.log("GET #####");
+    function onMessages(messages, roomName, bool) {
+      if (
+        bool === "update" &&
+        activeRoom === roomName &&
+        activeRoom !== undefined &&
+        activeRoom !== null
+      ) {
+        console.log("UPDATE #####");
+        setActiveRoom(roomName);
+        setMessages(messages);
+        setActiveTab("messages");
+      } else if (bool === "get" && activeRoom !== undefined) {
+        console.log("GET #####");
 
-          const updatedNewMessageCount = [...newMessageCount];
-          for (let i = 0; i < joinedRooms.length; i++) {
-            if (joinedRooms[i].name === roomName) {
-              updatedNewMessageCount[i] = 0;
-              setNewMessageCount(updatedNewMessageCount);
-            }
+        const updatedNewMessageCount = [...newMessageCount];
+        for (let i = 0; i < joinedRooms.length; i++) {
+          if (joinedRooms[i].name === roomName) {
+            updatedNewMessageCount[i] = 0;
+            setNewMessageCount(updatedNewMessageCount);
           }
+        }
 
-          setActiveRoom(roomName);
-          setMessages(messages);
-          setActiveTab("messages");
-        } else if (bool === "update" && activeRoom !== roomName) {
-          console.log("un nouveau message en attente a stocké");
-          const updatedNewMessageCount = [...newMessageCount];
+        setActiveRoom(roomName);
+        setMessages(messages);
+        setActiveTab("messages");
+      } else if (bool === "update" && activeRoom !== roomName) {
+        console.log("un nouveau message en attente a stocké");
+        const updatedNewMessageCount = [...newMessageCount];
 
-          for (let i = 0; i < joinedRooms.length; i++) {
-            // console.log(joinedRooms[i].name);
-            if (joinedRooms[i].name === roomName) {
-              let truc = newMessageCount;
-              updatedNewMessageCount[i] += 1;
+        for (let i = 0; i < joinedRooms.length; i++) {
+          // console.log(joinedRooms[i].name);
+          if (joinedRooms[i].name === roomName) {
+            let truc = newMessageCount;
+            updatedNewMessageCount[i] += 1;
 
-              // console.log("update newMessage");
-              setNewMessageCount(updatedNewMessageCount);
-              console.log(newMessageCount);
-            }
+            // console.log("update newMessage");
+            setNewMessageCount(updatedNewMessageCount);
+            console.log(newMessageCount);
           }
         }
       }
+    }
     // function onUpdateMessages(messages, roomName) {
     //   // console.log("socket de message recu");
     //   // console.log(messages);
