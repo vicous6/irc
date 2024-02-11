@@ -12,6 +12,7 @@ const server = http.createServer(app); // Create an HTTP server
 const port = process.env.PORT || 3010;
 const io = new Server(server);
 const corsOptions = {
+  "force new connection": true,
   origin: "https://irc-2exc-lntkc3sm0-vicous6.vercel.app/",
   methods: ["GET", "POST"], // Specify the allowed HTTP methods
 };
