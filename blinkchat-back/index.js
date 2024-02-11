@@ -23,7 +23,7 @@ mongoose
   .catch(() => console.log("Connection to Mongoose failed"));
 
 app.use(cors());
-
+io.listen(3010);
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
 });
