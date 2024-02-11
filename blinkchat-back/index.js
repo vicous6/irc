@@ -10,12 +10,7 @@ import Repository from "./data/Repository.js";
 const app = express();
 const server = createServer(app); // Creating server using createServer from http
 const port = process.env.PORT || 3010;
-const io = new Server(server, {
-  cors: {
-    origin: "https://irc-2exc.vercel.app/",
-    methods: ["GET", "POST"],
-  },
-});
+const io = new Server(server);
 
 let socketsList = [];
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority`;
