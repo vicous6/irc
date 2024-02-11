@@ -1,3 +1,3 @@
 import { io } from "socket.io-client";
 
-export const socket = io("https://back-end-irc.onrender.com:3000");
+export const socket = io("18.156.158.53:3000");
