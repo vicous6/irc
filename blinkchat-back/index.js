@@ -10,7 +10,7 @@ import Repository from "./data/Repository.js";
 const app = express();
 const server = http.createServer(app); // Create an HTTP server
 const port = process.env.PORT || 10000;
-const io = new Server(server, corsOptions);
+const io = new Server(server);
 const corsOptions = {
   "force new connection": true,
   origin: "https://irc-2exc.vercel.app/",
@@ -18,7 +18,7 @@ const corsOptions = {
 };
 //irc-2exc-4bo8gkrru-vicous6.vercel.app/
 // Use CORS middleware with the specified options
-https: app.use(cors(corsOptions));
+
 let socketsList = [];
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority`;
 mongoose
