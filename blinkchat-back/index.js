@@ -13,12 +13,12 @@ const port = process.env.PORT || 3010;
 const io = new Server(server);
 const corsOptions = {
   "force new connection": true,
-  origin: "https://irc-2exc-lntkc3sm0-vicous6.vercel.app/",
+  origin: "https://irc-2exc.vercel.app//",
   methods: ["GET", "POST"], // Specify the allowed HTTP methods
 };
-
+//irc-2exc-4bo8gkrru-vicous6.vercel.app/
 // Use CORS middleware with the specified options
-app.use(cors(corsOptions));
+https: app.use(cors(corsOptions));
 let socketsList = [];
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority`;
 mongoose
