@@ -7,15 +7,21 @@ import mongoose from "mongoose";
 import "dotenv/config";
 import Repository from "./data/Repository.js";
 
-const express = require("express");
 const app = express();
-const http = require("http");
+// const server = http.createServer(app); // Create an HTTP server
+// const port = process.env.PORT || 10000;
+// const io = new Server(server);
+// const corsOptions = {
+//   "force new connection": true,
+//   origin: "https://irc-2exc.vercel.app/",
+//   methods: ["GET", "POST"], // Specify the allowed HTTP methods
+// };
+// const express = require('express');
+// const app = express();
+
 const server = http.createServer(app);
 
 const io = require("socket.io")(server, { cors: { origin: "*" } });
-
-//irc-2exc-4bo8gkrru-vicous6.vercel.app/
-// Use CORS middleware with the specified options
 
 let socketsList = [];
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority`;
