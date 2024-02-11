@@ -9,8 +9,8 @@ import Repository from "./data/Repository.js";
 
 const app = express();
 const server = http.createServer(app); // Create an HTTP server
-const port = process.env.PORT || 3010;
-const io = new Server(server);
+const port = process.env.PORT || 10000;
+const io = new Server(server, corsOptions);
 const corsOptions = {
   "force new connection": true,
   origin: "https://irc-2exc.vercel.app/",
@@ -321,9 +321,7 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
 });
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+server.listen(port);
 //liste des choses a faire
 
 // ondeconect : send pop up to all users from all salons where users has joined
